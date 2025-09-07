@@ -1184,6 +1184,72 @@ button.vivaldi {
     scale: 0.9;
 }
 
+/* Panel Elements */
+
+.toolbar-default {
+    height: 0px; !important;
+    visibility: hidden; !important;
+}
+
+.panel-group .sortselector.sortselector-compact, .download-popout .sortselector.sortselector-compact {
+    visibility: hidden; !important;
+    height: 0; !important;
+}
+
+.panel > header input[type=text], .panel > header input[type=search] {
+    visibility: hidden; !important;
+}
+
+.download-editor.download-editor {
+    visibility: hidden; !important;
+}
+
+.button-popup .resize {
+    height: 0px; !important;
+}
+
+.button-popup-arrow-dark:before {
+    visibility: hidden; !important;
+}
+
+.download-popout.button-popup {
+  position: fixed !important;
+  width: 360px !important;
+  height: 280px !important;
+  bottom: 40px !important;
+  right: 20px !important;
+  left: 425px !important;
+  top: auto !important;
+}
+
+.panel > header h1 {
+    margin: 5px 0px 5px 12px;
+}
+
+.sortselector.sortselector-compact {
+    margin-bottom: 0px;
+}
+
+/* Downloads button */
+
+#downloads-button .downloads-button-progress {
+  animation: download-pulse 1.5s infinite;
+}
+
+@keyframes download-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
 
 
 /*========================
@@ -1386,6 +1452,8 @@ button.vivaldi {
 .tabs-left #tabs-container .toolbar-tabbar-after, .tabs-right #tabs-container .toolbar-tabbar-after {
     visibility: hidden;
 }
+
+
 
 /*========================
   JS tweaks
