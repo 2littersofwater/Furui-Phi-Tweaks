@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        Furui's Script for Phi
-// @description Custom Scripts for Furui's Phi Teraks
+// @description Custom Scripts for Furui's Phi Tweaks
 // @version     1.4
 // ==/UserScript==
 
@@ -117,3 +117,4 @@
 
     loadingBarObserver.observe(document.body, { childList: true, subtree: true });
 })();
+
