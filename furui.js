@@ -1,12 +1,15 @@
 // ==UserScript==
 // @name        Furui's Script for Phi
-// @description Essential for Extension Auto-Collapse and Loading Bar script.
-// @version     1.2
+// @description Custom Scripts for Furui's Phi Teraks
+// @version     1.4
 // ==/UserScript==
 
 (function () {
     'use strict';
 
+    // ---------------------------------
+    // Auto-collapse menus
+    // ---------------------------------
     function attachCollapseHandler() {
         const menus = document.querySelectorAll('.extensionIconPopupMenu');
         menus.forEach(menu => {
@@ -15,24 +18,33 @@
 
             menu.addEventListener('click', (evt) => {
                 if (evt.button !== 0) return;
-                setTimeout(() => {
-                    try {
-                        menu.style.display = 'none';
-                    } catch (e) {}
-                }, 80);
+                setTimeout(() => menu.classList.add('collapsed'), 80);
             }, true);
         });
     }
 
-    const closePopObserver = new MutationObserver(() => attachCollapseHandler());
-    closePopObserver.observe(document.body, { childList: true, subtree: true });
+    // Add CSS rule once
+    const style = document.createElement('style');
+    style.textContent = `.extensionIconPopupMenu.collapsed { display: none !important; }`;
+    document.head.appendChild(style);
 
+    // Debounce helper
+    let collapseRaf;
+    function scheduleAttach() {
+        if (collapseRaf) cancelAnimationFrame(collapseRaf);
+        collapseRaf = requestAnimationFrame(attachCollapseHandler);
+    }
+
+    // Observe only where extension menus appear
+    const extContainer = document.querySelector('#extensions') || document.body;
+    const closePopObserver = new MutationObserver(scheduleAttach);
+    closePopObserver.observe(extContainer, { childList: true, subtree: true });
     attachCollapseHandler();
+    console.debug('[ext-collapse] optimized auto-collapse active');
 
-    console.debug('[ext-collapse] auto-collapse active');
-
-
-    //Loading Bar
+    // ------------------------------
+    // Loading Bar
+    // ------------------------------
     const createProgressBar = () => {
         const progressBar = document.createElement('div');
         progressBar.id = 'loading-bar';
@@ -41,17 +53,8 @@
         let currentProgress = 0;
         let loadingTabs = new Set();
 
-        const getPageColor = () => {
-            const themeColorMeta = document.querySelector('meta[name="theme-color"]');
-            if (themeColorMeta) {
-                return themeColorMeta.content;
-            }
-            return '#0066ff';
-        };
-
         const updateProgress = (newWidth) => {
             if (newWidth > currentProgress) {
-                progressBar.style.transition = 'width 0.5s ease-out';
                 progressBar.style.width = newWidth + '%';
                 currentProgress = newWidth;
             }
@@ -60,10 +63,8 @@
         const handleComplete = (details) => {
             if (loadingTabs.has(details.tabId)) {
                 loadingTabs.delete(details.tabId);
-                progressBar.style.transition = 'width 0.3s ease';
                 progressBar.style.width = '100%';
                 setTimeout(() => {
-                    progressBar.style.transition = 'none';
                     progressBar.style.width = '0%';
                     currentProgress = 0;
                 }, 500);
@@ -73,50 +74,35 @@
         const handleErrorOrAbort = (details) => {
             if (loadingTabs.has(details.tabId)) {
                 loadingTabs.delete(details.tabId);
-                progressBar.style.transition = 'width 0.1s ease';
                 progressBar.style.width = '0%';
                 currentProgress = 0;
             }
         };
 
-        const showLoadingBar = () => {
-            progressBar.style.display = 'block';
-        };
-
-        const hideLoadingBar = () => {
-            progressBar.style.display = 'none';
-        };
+        const showLoadingBar = () => progressBar.style.display = 'block';
+        const hideLoadingBar = () => progressBar.style.display = 'none';
 
         chrome.webNavigation.onBeforeNavigate.addListener((details) => {
             loadingTabs.add(details.tabId);
-            progressBar.style.backgroundColor = getPageColor();
             updateProgress(20);
         });
 
         chrome.webNavigation.onDOMContentLoaded.addListener((details) => {
-            if (loadingTabs.has(details.tabId)) {
-                updateProgress(70);
-            }
+            if (loadingTabs.has(details.tabId)) updateProgress(70);
         });
 
         chrome.webNavigation.onCompleted.addListener(handleComplete);
         chrome.webNavigation.onErrorOccurred.addListener(handleErrorOrAbort);
 
         chrome.tabs.onActivated.addListener((activeInfo) => {
-            if (loadingTabs.has(activeInfo.tabId)) {
-                showLoadingBar();
-            } else {
-                hideLoadingBar();
-            }
+            if (loadingTabs.has(activeInfo.tabId)) showLoadingBar();
+            else hideLoadingBar();
         });
 
         chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
             if (tab.active) {
-                if (loadingTabs.has(tabId)) {
-                    showLoadingBar();
-                } else {
-                    hideLoadingBar();
-                }
+                if (loadingTabs.has(tabId)) showLoadingBar();
+                else hideLoadingBar();
             }
         });
     };
@@ -129,8 +115,5 @@
         }
     });
 
-    loadingBarObserver.observe(document.body, {
-        childList: true,
-        subtree: true
-    });
+    loadingBarObserver.observe(document.body, { childList: true, subtree: true });
 })();
