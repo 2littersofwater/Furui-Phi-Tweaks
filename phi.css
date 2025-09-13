@@ -435,8 +435,14 @@
 
     .OmniDropdown
     {
-        top: 105%;
-        padding-top: 0;
+        top: 50%; /* Default 105% */
+		/* padding-top: 0px */
+        padding: 36px 10px 10px 10px; /* added */
+		box-shadow: 2px 0 0 0 var(--colorAccentBgFadedMost), -2px 0 0 0 var(--colorAccentBgFadedMost), 0 2px 0 0 var(--colorAccentBgFadedMost);
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
     }
 
     .toolbar-extensions
@@ -1230,8 +1236,7 @@ button.vivaldi {
     margin-bottom: 0px;
 }
 
-/* Downloads button */
-
+/* downloads progress */
 #downloads-button .downloads-button-progress {
   animation: download-pulse 1.5s infinite;
 }
@@ -1250,7 +1255,6 @@ button.vivaldi {
     opacity: 1;
   }
 }
-
 
 /*========================
   Workspaces
@@ -1454,6 +1458,38 @@ button.vivaldi {
 }
 
 
+.OmniLinkItem-Badge {
+    text-align: unset;
+    font-size: 0px;
+    visibility: hidden;
+    padding: 0px;
+}
+
+.OmniLinkItem-TabSwitchLabel {
+    padding: 0px;
+    visibility: hidden;
+    margin-left: unset;
+    gap: 0px;
+    font-size: 0px;
+}
+
+.OmniLinkItem--Highlighted:not(.OmniLinkItem--ButtonFocus) {
+    background-color: #1a1a1a;
+}
+
+.OmniLinkItem {
+    padding: 16px 16px 16px 16px;
+}
+
+.color-behind-tabs-off .SearchField:focus-within, .color-behind-tabs-off .MailSearchField-Inner:focus-within, .color-behind-tabs-off .UrlBar-AddressField:focus-within {
+	box-shadow: 2px 0 0 0 var(--colorAccentBgFadedMost), 
+            -2px 0 0 0 var(--colorAccentBgFadedMost), 
+            0 -2px 0 0 var(--colorAccentBgFadedMost),
+            0 1px 0 0 var(--colorAccentBgFadedMost);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+	outline: none !important;
+}
 
 /*========================
   JS tweaks
@@ -1465,13 +1501,14 @@ button.vivaldi {
     left: 0;
     height: 4px;
     width: 0;
-	background: linear-gradient(to right, #000080, #008b8b, #00ced1);
+	background: linear-gradient(to right, #EAF4D3, #DBD8AE, #CA907E);
 	/*My goto #00ffcc, #0066ff*/
 	/*wow lakers #e91e63, #9c27b0, #ffeb3b*/
 	/*betlog #000080, #008b8b, #00ced1*/
 	/*Orange Firefox #ff4500, #ff8c00, #ffd700*/
 	/*Red Vivaldi #a20000, #c91c1d, #ef393a*/
+	/* #cadbc0, #c94277, #a27e6f*/
+	/* #EAF4D3, #DBD8AE, #CA907E */
     transition: width 0.3s ease;
     z-index: 9999;
 }
-
