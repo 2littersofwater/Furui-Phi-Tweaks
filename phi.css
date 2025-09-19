@@ -1193,29 +1193,35 @@ button.vivaldi {
 /* Panel Elements */
 
 .toolbar-default {
-    height: 0px; !important;
-    visibility: hidden; !important;
+    height: 28px; !important;
 }
 
-.panel-group .sortselector.sortselector-compact, .download-popout .sortselector.sortselector-compact {
-    visibility: hidden; !important;
-    height: 0; !important;
+.toolbar.toolbar-default.toolbar-wrap {
+    visibility: hidden !important;
+	height: 0px !important;
 }
+
+.panel > header {
+    min-height: 26px;
+	margin-bottom: 0px;
+}
+
+.sortselector-compact
 
 .panel > header input[type=text], .panel > header input[type=search] {
     visibility: hidden; !important;
 }
 
 .download-editor.download-editor {
-    visibility: hidden; !important;
+    visibility: hidden !important;
 }
 
 .button-popup .resize {
-    height: 0px; !important;
+    height: 0px !important;
 }
 
 .button-popup-arrow-dark:before {
-    visibility: hidden; !important;
+    visibility: hidden !important;
 }
 
 .download-popout.button-popup {
@@ -1229,11 +1235,13 @@ button.vivaldi {
 }
 
 .panel > header h1 {
-    margin: 5px 0px 5px 12px;
+    margin: 5px 0px 12px 12px;
 }
 
 .sortselector.sortselector-compact {
-    margin-bottom: 0px;
+	visibility: hidden !important;
+    margin-bottom: 0px !important;
+	position: fixed !important;
 }
 
 /* downloads progress */
