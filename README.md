@@ -3,9 +3,6 @@ Be sure to go to [KaKi87's Phi for Vivaldi](https://github.com/KaKi87/phi-for-vi
 
 This is my personal CSS that I use to fit my liking and just appended some things to Phi that I want to be included, **~~very minor~~** changes, but visually different (I think...). Based mostly on KaKi87's work so head to their repo and support them.
 
-> [!NOTE]
-> I do not do most of the code and majority of the appended line is done by using AI. I do not know anything regarding coding styles or javascripts, but I am using this experience to educate myself on this subject. Since I use this mostly to have my preference added, I only want to share what I personally like to see when I open Vivaldi.
-
 
 # Installation:
 ### **To install .css styling that I have:**
@@ -37,9 +34,12 @@ Example below:
 </html>
 ```
 
-  
 
 ## Features:
 
 A lot of things, i am lazy to put screenshots
 
+## Limitations:
+The tweaks that I have done is mostly to fit what I used to have when I was using [Zen Browser](https://zen-browser.app), thus there might be some elements that you want but I don't. Feel free to change back what I had done.
+
++ Exceeding the toolbar WILL coincide with exit, minimize, maximize
