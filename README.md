@@ -37,7 +37,10 @@ Example below:
 
 ## Features:
 
-A lot of things, i am lazy to put screenshots
+| ![](./screenshots/vertical-extensions.png)  | ![](./screenshots/mac-title-bar.png)  | ![](./screenshots/grayscale-inactive.png) |
+|---------------------------------------------|----------------------------------------|----------------------------------------------|
+| **Vertical Extensions** | **Mac-styled Window Buttons**                | **Grayscaled Inactive Tabs**                   |
+
 
 ##  Customization
 
@@ -78,17 +81,15 @@ While the mod aims to be compatible with as many native customization features a
 <sup>(6)</sup> Reduces page content area. When enabled, recommended value is `10`. A lower value will reveal an unavoidable page content width inconsistency between normal & split tabs.<br>
 <sup>(7)</sup> When enabled, recommended value is `5`.<br>
 <sup>(8)</sup> To copy Zen Browser, set value to `10`.
-
+\
+\
 Applying modifications requires restarting Vivaldi.
 
-## :wrench: Troubleshooting
-
-- Double check Vivaldi settings as per installation step 4 ;
-- Find potentially incompatible settings by comparing with an empty profile ;
-- You may disable Phi by setting the tab bar position to top or bottom or toggling the tab bar off ;
-- Simultaneously using Phi with another CSS mod is not supported.
 
 ## Limitations:
-The tweaks that I have done is mostly to fit what I used to have when I was using [Zen Browser](https://zen-browser.app), thus there might be some elements that you want but I don't. Feel free to change back what I had done.
+The tweaks that I have done is mostly to fit what I used to have when I was using [Zen Browser](https://zen-browser.app), thus there might be some elements that you want but I don't. Feel free to change back what I had done 
+
+> [!NOTE]
+> The changes in the .css file are commented as `edited`, the default values are there.
 
 + Exceeding the toolbar WILL coincide with exit, minimize, maximize
