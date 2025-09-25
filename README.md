@@ -40,7 +40,8 @@ Example below:
 | ![](./screenshots/vertical-extensions.png)  | ![](./screenshots/mac-title-bar.png)  | ![](./screenshots/grayscale-inactive.png) |
 |---------------------------------------------|----------------------------------------|----------------------------------------------|
 | **Vertical Extensions** | **Mac-styled Window Buttons**                | **Grayscaled Inactive Tabs**                   |
-
+| ![](./screenshots/downloads.png)  |   |  |
+| **Clean Downloads List** |              |                |
 
 ##  Customization
 
