@@ -93,3 +93,4 @@ The tweaks that I have done is mostly to fit what I used to have when I was usin
 > The changes in the .css file are commented as `edited`, the default values are there.
 
 + Exceeding the toolbar WILL coincide with exit, minimize, maximize
++ Downloads button should only be on the left-most bottom toolbar (next to panels) and is accessible via the Toolbar Editor in **Address Bar Toggle** not in the Panel
