@@ -38,7 +38,7 @@
     --phi--is-hide-content-blocker: 1;
 	
 	/* Sandwich Button */
-	--phitweaks--sandwich-button: none;  
+	--phitweaks--sandwich-button: unset;  
 		/* none / unset */
 
 	/* Top Loading Bar Color*/
@@ -1162,6 +1162,111 @@ button.vivaldi {
 .window-buttongroup.on-mainbar .window-maximize:hover {
     background: #1e3722 !important;
 }
+
+/*========================
+  Downloads
+========================*/
+#downloads-container,
+#downloads-container * {
+    font-size: 90% !important;
+}
+
+.downloadItem,
+.download-item {
+    padding: 2px 6px !important;
+    min-height: 22px !important;
+}
+
+.downloadProgress,
+.download-progress {
+    height: 3px !important;
+}
+
+.downloadItem .button-toolbar,
+.download-item .button-toolbar {
+    padding: 0 4px !important;
+    scale: 0.9;
+}
+
+/* Panel Elements */
+
+.toolbar-default {
+    height: 28px; !important;
+}
+
+.toolbar.toolbar-default.toolbar-wrap {
+    visibility: hidden !important;
+	height: 0px !important;
+}
+
+.panel > header {
+    min-height: 26px !important;
+	margin-bottom: 0px !important;
+}
+
+.panel section {
+    padding-bottom: 10px;
+}
+
+.sortselector-compact
+
+.panel > header input[type=text], .panel > header input[type=search] {
+    display: none !important;
+}
+
+.download-editor.download-editor {
+    display: none !important;
+}
+
+.button-popup .resize {
+    display: none !important;
+}
+
+.button-popup-arrow-dark:before {
+    display: none !important;
+}
+
+
+.download-popout.button-popup {
+  position: fixed !important;
+  width: 360px !important;
+  height: 280px !important;
+  bottom: 40px !important;
+  right: 20px !important;
+  left: 425px !important;
+  top: auto !important;
+}
+
+.panel > header h1 {
+    margin: 5px 0px 12px 12px;
+}
+
+.sortselector.sortselector-compact {
+	visibility: hidden !important;
+    margin-bottom: 0px !important;
+	position: fixed !important;
+}
+
+/* downloads progress */
+#downloads-button .downloads-button-progress {
+  animation: download-pulse 1.5s infinite;
+}
+
+@keyframes download-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
 
 
 /*========================
