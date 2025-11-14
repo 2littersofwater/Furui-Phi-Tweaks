@@ -18,6 +18,11 @@
 
 :root
 {
+	
+	/*========================
+	  Phi Settings
+	========================*/
+	
     --phi--sidebar-width: 280;
     --phi--compact-sidebar-width: 50;
     --phi--is-phi-menu-icon: 1;
@@ -36,15 +41,25 @@
     --phi--is-individual-tiled-tab-header: 0;
     --phi--is-hide-window-controls: 0;
     --phi--is-hide-content-blocker: 1;
-	
-	/* Sandwich Button */
-	--phitweaks--sandwich-button: unset;  
-		/* none / unset */
 
-	/* Top Loading Bar Color*/
-	--phitweaks--loadingbar-color: #ff4500, #ff8c00, #ffd700;
-		/* Loading Bar Colors can be of any gradient, not limited to any number of colors*/
-}
+
+
+	/*========================
+	  Phi Tweaks Settings
+	========================*/
+	
+	--phitweaks--loadingbar-color: #D9F4C7, #F8FA90, #F4EF88, #AC9969;
+	--phitweaks--hide-workspace-button: 1;
+	--phitweaks--custom-window-controls: 1;
+		--phitweaks--custom-window-controls-minimize-color: #E69B00;
+		--phitweaks--custom-window-controls-maximize-color: #028A0F;
+		--phitweaks--custom-window-controls-close-color: #BF4040;
+			--phitweaks--custom-window-controls-more-toolbar-space: 0;
+			--phitweaks--custom-window-controls-windows-style-height: 20;
+	--phitweaks--vertical-extensions: 1;
+	--phitweaks--simplified-downloads: 1;
+	--phitweaks--simplified-downloads-files: 8;
+
 
 /*
  * You may copy the above settings in a separate 'phi-custom.css'
@@ -144,7 +159,6 @@
         grid-column: var(--phi__page-order) / span 1;
     }
 
-
     [name="WorkspaceButton"],
     .toolbar-mainbar[aria-label],
     #tabs-container,
@@ -159,21 +173,17 @@
     #tabs-container              { grid-row: 3 / span 1; }
     .toolbar-panel               { grid-row: 4 / span 1; }
 
-    .window-buttongroup /*edited*/
-    {
-        position: absolute !important; /* default: relative*/
-		top: 5px !important;           /* comment out */
-        left: calc(var(--phi--sidebar-width) * 1px - 70px) !important;       /* default: unset*/
-        right: unset !important;
-        grid-column: 1 / -1;
-		margin-left: auto !important;  /* comment out */
-		margin-right: 4px;  		   /* comment out */
-    }
-	
-	.disable-titlebar#browser.win .window-buttongroup {  /* comment out */
-    height: 24px;										 /* comment out */
-	}													 /* comment out */
-	
+	@container style(--phitweaks--custom-window-controls: 0)
+	{
+		.window-buttongroup
+		{
+			position: relative !important;
+			left: unset !important;
+			right: unset !important;
+			grid-column: 1 / -1;
+		}
+	}
+
     .vivaldi
     {
         position: relative;
@@ -204,14 +214,14 @@
         padding: 0 5px !important;
     }
 
-    .toolbar-mainbar[aria-label] 			/*edited*/
+    .toolbar-mainbar[aria-label]
     {
         --phi__address-bar-row: 2;
         --phi__extensions-row: 3;
         &:has(.window-buttongroup)
         {
-            --phi__address-bar-row: 4; 		/*default 3*/
-            --phi__extensions-row: 3;  		/*default 4*/
+            --phi__address-bar-row: 3;
+            --phi__extensions-row: 4;
         }
 
         width: 100%;
@@ -223,13 +233,13 @@
         -webkit-app-region: drag;
     }
 
-    &:has(.window-buttongroup) 						/* edited */
+    &:has(.window-buttongroup)
     {
         .toolbar-mainbar[aria-label]
         {
-            --phi__window-controls-row-height: 1; 	/*default: 1fr*/
-            --phi__address-bar-row: 4; 				/*default 3*/
-            --phi__extensions-row: 3; 				/*default 4*/
+            --phi__window-controls-row-height: 1fr;
+            --phi__address-bar-row: 3;
+            --phi__extensions-row: 4;
             grid-template-rows: var(--phi__window-controls-row-height) 1fr 1fr auto;
         }
 
@@ -375,10 +385,10 @@
         font-size: calc(13px - calc(var(--phi--address-bar-font-size-decrease) * 1px));
     }
 
-    .UrlBar-AddressField:has(#urlFieldInput:focus) 		/* edited */
+    .UrlBar-AddressField:has(#urlFieldInput:focus)
     {
         grid-column: 1 / -1;
-        /* height: 100% !important; */					/* remove comment */
+        height: 100% !important;
         font-size: unset;
     }
 
@@ -435,16 +445,10 @@
         padding: 0 4px 0 0 !important;
     }
 
-    .OmniDropdown 							/* edited */
+    .OmniDropdown
     {
-        top: 50%; 							/* Default 105% */
-		/* padding-top: 0px */				/* remove comment */
-        padding: 36px 10px 10px 10px; 		/* comment out everything... */
-		box-shadow: 2px 0 0 0 var(--colorAccentBgFadedMost), -2px 0 0 0 var(--colorAccentBgFadedMost), 0 2px 0 0 var(--colorAccentBgFadedMost);
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-        border-bottom-left-radius: 8px;
-        border-bottom-right-radius: 8px;		/* ...until here */
+        top: 105%;
+        padding-top: 0;
     }
 
     .toolbar-extensions
@@ -477,10 +481,15 @@
         height: 30px !important;
     }
 
-    [name="WorkspaceButton"]					/* edited */
+    [name="WorkspaceButton"]
     {
-        margin: 5px 5px 5px 5px !important; 	/*default 0px 5px 5px 5px */
-    }
+        margin: 0 5px 5px 5px !important;
+		
+		@container style(--phitweaks--hide-workspace-button: 1)
+		{
+			display: none !important;
+		}
+	}
 
     @container style(--phi___is-compact-mode: 1)
     {
@@ -530,12 +539,12 @@
             flex-wrap: wrap;
         }
 
-        .toolbar-panel::before							/* edited */
+        .toolbar-panel::before
         {
             content: '';
             width: 100%;
             border: 1px solid var(--colorAccentFg);
-            opacity: 0;									/* default: 0.15*/
+            opacity: 0.15;
             margin: 5px;
         }
     }
@@ -577,6 +586,7 @@
         margin: 0;
         padding: 0;
         max-height: unset;
+		background-color: var(--colorBgAlphaHeavier);
     }
 
     .tab-strip .separator
@@ -666,7 +676,7 @@
                 grid-column: span 1;
                 aspect-ratio: 1;
                 flex-direction: column-reverse;
-                background-color: var(--colorAccentBgAlphaHeavy);
+                background-color: var(--colorBgAlphaHeavy);
             }
 
             .group
@@ -682,8 +692,8 @@
 
             .tab
             {
-				max-height: unset;
-				height: 100%;
+                max-height: unset;
+                height: 100%;
                 grid-row: 1 / 3;
                 align-items: center;
             }
@@ -854,7 +864,7 @@
 
     .toolbar-tabbar-after
     {
-        flex: 1 1 45px;
+        visibility: hidden !important;
     }
 
     .toolbar-tabbar-after .toolbar-spacer-flexible
@@ -972,7 +982,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-        
+
             &::before
             {
                 content: '🔗 ' attr(src);
@@ -983,97 +993,504 @@
                 overflow: hidden;
                 text-overflow: ellipsis;
             }
-        }
+		}
     }
 }
 
 
-/*=============================================
-  Appended Phi Code Organized by Category
-=============================================*/
+
+
+/*===============================================
+  Sections Reserved for Phi Tweaks
+===============================================*/
+
+/*=======================================
+		Window Control Button
+=======================================*/
+
+/*========================
+  Windows Styled Buttons
+========================*/
+
+@container style(--phitweaks--custom-window-controls: 1)
+{
+	.window-buttongroup
+	{
+		position: fixed !important;
+		left: calc(100vw - 120px) !important;
+        right: unset !important;
+		top: 0px !important;
+		grid-column: 1 / -1;
+		margin-left: auto !important;
+		margin-right: 4px;
+	}
+
+	.disable-titlebar#browser.win .window-buttongroup 
+	{
+		height: 18px;
+	}			
+
+	.window-buttongroup.on-mainbar 
+	{
+		gap: 0px !important;
+		overflow: hidden;
+	}
+
+	.window-buttongroup.on-mainbar button
+	{
+		width: 32px !important;
+		height: calc(var(--phitweaks--custom-window-controls-windows-style-height) * 1px) !important;
+        position: relative !important;
+		border-radius: 0 !important;
+		border: none !important;
+		padding: 0 !important;
+		margin: 0 !important;
+		min-width: 32px !important;
+		min-height: 32px !important;
+		font-size: 0 !important;
+		color: transparent !important;
+        background: none !important;
+        z-index: 2;
+	}
+
+    .window-buttongroup.on-mainbar button::after
+    {
+        content: "" !important;
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 32px !important;
+        height: 10px !important;
+        transition: height 0.2s ease-in-out !important;
+        z-index: 1 !important;
+    }
+
+    .window-buttongroup.on-mainbar button:hover::after
+    {
+        height: calc(var(--phitweaks--custom-window-controls-windows-style-height) * 1px) !important;
+    }
+
+	.window-buttongroup.on-mainbar .window-close::after
+	{
+		background: var(--phitweaks--custom-window-controls-close-color) !important;
+	}
+	.window-buttongroup.on-mainbar .window-close:hover::after
+	{
+		background: hsl(from var(--phitweaks--custom-window-controls-close-color) h s calc(l - 20)) !important;
+	}
+
+	.window-buttongroup.on-mainbar .window-minimize::after
+	{
+		background: var(--phitweaks--custom-window-controls-minimize-color) !important;
+	}
+	.window-buttongroup.on-mainbar .window-minimize:hover::after
+	{
+		background: hsl(from var(--phitweaks--custom-window-controls-minimize-color) h s calc(l - 20)) !important;
+	}
+
+	.window-buttongroup.on-mainbar .window-maximize::after
+	{
+		background: var(--phitweaks--custom-window-controls-maximize-color) !important;
+	}
+	.window-buttongroup.on-mainbar .window-maximize:hover::after
+	{
+		background: hsl(from var(--phitweaks--custom-window-controls-maximize-color) h s calc(l - 20)) !important;
+	}
+
+	.window-buttongroup.on-mainbar .window-close img,
+	.window-buttongroup.on-mainbar .window-close svg,
+    .window-buttongroup.on-mainbar .window-minimize img,
+	.window-buttongroup.on-mainbar .window-minimize svg,
+    .window-buttongroup.on-mainbar .window-maximize img,
+	.window-buttongroup.on-mainbar .window-maximize svg
+	{
+		display: none !important;
+	}
+
+	@container style(--phitweaks--custom-window-controls-more-toolbar-space: 1)
+	{
+		.toolbar-mainbar[aria-label]
+		{
+			--phi__window-controls-row-height: 1fr !important;
+		}
+	}
+
+	@container style(--phitweaks--custom-window-controls-more-toolbar-space: 0)
+	{
+		.toolbar-mainbar[aria-label]
+		{
+			--phi__window-controls-row-height: 1 !important;
+		}
+	}
+}
+
+/*========================
+  Mac OS Styled Button
+========================*/
+
+@container style(--phitweaks--custom-window-controls: 2)
+{
+	.window-buttongroup
+	{
+		position: absolute !important;
+		left: calc(var(--phi--sidebar-width) * 1px - 80px) !important;
+        right: unset !important;
+		top: 14px !important;
+		grid-column: 1 / -1;
+		margin-left: auto !important;
+		margin-right: 4px;
+	}
+
+	.disable-titlebar#browser.win .window-buttongroup 
+	{
+		height: 24px;
+	}			
+
+	.window-buttongroup.on-mainbar 
+	{
+		gap: 8px !important;
+	}
+
+	.window-buttongroup.on-mainbar button
+	{
+		width: 16px !important;
+		height: 16px !important;
+		border-radius: 50% !important;
+		border: none !important;
+		padding: 0 !important;
+		margin: 0 !important;
+		min-width: 16px !important;
+		min-height: 16px !important;
+		font-size: 0 !important;
+		color: transparent !important;
+	}
+
+	.window-buttongroup.on-mainbar button::before,
+	.window-buttongroup.on-mainbar button::after 
+	{
+		content: none !important;
+	}
+
+	.window-buttongroup.on-mainbar .window-close 
+	{
+		background: var(--phitweaks--custom-window-controls-close-color) !important;
+	}
+
+	.window-buttongroup.on-mainbar .window-close img,
+	.window-buttongroup.on-mainbar .window-close svg 
+	{
+		display: none !important;
+	}
+
+	.window-buttongroup.on-mainbar .window-close:hover 
+	{
+		background: hsl(from var(--phitweaks--custom-window-controls-close-color) h s calc(l - 20)) !important;
+	}
+
+	.window-buttongroup.on-mainbar .window-minimize 
+	{
+		background: var(--phitweaks--custom-window-controls-minimize-color) !important;
+	}
+
+	.window-buttongroup.on-mainbar .window-minimize img,
+	.window-buttongroup.on-mainbar .window-minimize svg 
+	{
+		display: none !important;
+	}
+
+	.window-buttongroup.on-mainbar .window-minimize:hover 
+	{
+		background: hsl(from var(--phitweaks--custom-window-controls-minimize-color) h s calc(l - 20)) !important;
+	}
+
+	.window-buttongroup.on-mainbar .window-maximize 
+	{
+		background: var(--phitweaks--custom-window-controls-maximize-color) !important;
+	}
+
+	.window-buttongroup.on-mainbar .window-maximize img,
+	.window-buttongroup.on-mainbar .window-maximize svg 
+	{
+		display: none !important;
+	}
+
+	.window-buttongroup.on-mainbar .window-maximize:hover 
+	{
+		background: hsl(from var(--phitweaks--custom-window-controls-maximize-color) h s calc(l - 20)) !important;
+	}
+	
+	@container style(--phitweaks--custom-window-controls-more-toolbar-space: 1)
+	{
+		.toolbar-mainbar[aria-label]
+		{
+			--phi__window-controls-row-height: 1fr !important;
+		}
+	}
+
+	@container style(--phitweaks--custom-window-controls-more-toolbar-space: 0)
+	{
+		.toolbar-mainbar[aria-label]
+		{
+			--phi__window-controls-row-height: 1 !important;
+		}
+	}
+}
+
+
+
+/*========================
+  Extension Tweaks
+========================*/
+
+@container style(--phitweaks--vertical-extensions: 1)
+{
+	.extension-popup 
+	{
+		position: fixed !important;
+		top: 40px !important;
+		left: 10px !important;
+	}
+
+	.extension-popup::before,
+	.extension-popup::after 
+	{
+		display: none !important;
+		content: none !important;
+	}
+
+
+	/* Wider Popup */
+	.extensionIconPopupMenu 
+	{
+		min-width: 280px !important;
+		max-width: 320px !important;
+		padding: 6px !important;
+		background-color: var(--colorBgIntserAlpha);
+	}
+
+	/* Extension in row */
+	.extensionIconPopupMenu .toolbar.toolbar-mainbar.toolbar-wrap .button-toolbar 
+	{
+		display: flex !important;
+		align-items: center !important;
+		justify-content: flex-start !important;
+		gap: 12px !important;
+		padding: 10px 14px !important;
+		margin: 2px 0 !important;
+		border-radius: 10px !important;
+		width: 100% !important;
+		box-sizing: border-box !important;
+		cursor: pointer !important;
+		transition: background 0.2s ease;
+	}
+
+	.extensionIconPopupMenu .toolbar.toolbar-mainbar.toolbar-wrap .button-toolbar:hover 
+	{
+		background: var(--colorFg) !important; /* rgba(0,0,0,0.08) !important;*/
+	}
+
+	/* Icon size */
+	.extensionIconPopupMenu .toolbar.toolbar-mainbar.toolbar-wrap .button-toolbar > button 
+	{
+		flex-shrink: 0 !important;
+		width: 22px !important;
+		height: 22px !important;
+		display: flex !important;
+		align-items: center !important;
+		justify-content: center !important;
+	}
+
+	/* Label next to icon */
+	.extensionIconPopupMenu .toolbar.toolbar-mainbar.toolbar-wrap .button-toolbar > button::after 
+	{
+		content: attr(title) !important;
+		font-size: 14px !important;
+		color: var(--colorFg, #222) !important;
+		margin-left: 10px !important;
+		flex-grow: 1 !important;
+		text-align: left !important;
+		white-space: nowrap !important;
+		overflow: hidden !important;
+		text-overflow: ellipsis !important;
+	}
+
+	/* Remove inner button background (hover) */
+	.extensionIconPopupMenu .toolbar.toolbar-mainbar.toolbar-wrap .button-toolbar > button 
+	{
+		background: transparent !important;
+		box-shadow: none !important;
+	}
+
+	/* Hover the whole row instead */
+	.extensionIconPopupMenu .toolbar.toolbar-mainbar.toolbar-wrap .button-toolbar:hover 
+	{
+		background: var(--colorAccentFgAlpha) !important;
+		border-radius: 8px !important;
+	}
+}
+
+/*========================
+  Downloads
+========================*/
+
+@container style(--phitweaks--simplified-downloads: 1)
+{
+
+	.button-popup .resize 
+	{
+	  display: none;
+	}
+
+	.button-popup:before 
+	{
+	  display: none;
+	}
+
+	.toolbar-default 
+	{
+	  display: none;
+	}
+
+	.download-editor.download-editor 
+	{
+	  display: none;
+	}
+
+	.download-popout.button-popup 
+	{
+	  position: absolute !important;
+	  bottom: 40px !important;
+	  top: auto !important;
+	  width: 360px !important;
+	  height: calc(((var(--phitweaks--simplified-downloads-files) - 4) * 50px) + 270px) !important;
+	  background: var(--colorBgIntserAlpha) !important;
+	  margin-left: -30px !important;
+	}
+
+	.sortselector.sortselector-compact 
+	{
+	  display: none !important;
+	}
+
+	/* downloads progress */
+	#downloads-button .downloads-button-progress 
+	{
+	  animation: download-pulse 1.5s infinite;
+	}
+
+	@keyframes download-pulse 
+	{
+	  0% {
+		transform: scale(1);
+		opacity: 1;
+	  }
+	  50% {
+		transform: scale(1.1);
+		opacity: 0.8;
+	  }
+	  100% 
+	  {
+		transform: scale(1);
+		opacity: 1;
+	  }
+	}
+}
 
 /*========================
   Tab Customization
 ========================*/
 .theme-dark .tab-position .tab.active .tab-header .favicon:not(.svg), 
-.acc-dark.color-behind-tabs-off .tab-position .tab.active .tab-header .favicon:not(.svg) {
-  filter: none;
+.acc-dark.color-behind-tabs-off .tab-position .tab.active .tab-header .favicon:not(.svg) 
+{
+	filter: none;
 }
 
 .tab-position,
-.tab-wrapper {
-  min-height: 30px !important;
-  flex: none !important;
+.tab-wrapper 
+{
+	min-height: 30px !important;
+	flex: none !important;
 }
 
 .tab-strip,
 .tab-position,
-.tab-wrapper {
-  overflow: visible !important;
+.tab-wrapper 
+{
+	overflow: visible !important;
 }
 
-.tab {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  z-index: 0;
+.tab 
+{
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+	z-index: 0;
 }
 
-.tab.active.pinned {
-  background-color: transparent !important;
-  box-shadow: inset 0 0 3px 1px #d1d1d1 !important; 
-  border-radius: 6px !important;
+.tab.active.pinned 
+{
+	background-color: transparent !important;
+	box-shadow: inset 0 0 3px 1px #d1d1d1 !important; 
+	border-radius: 6px !important;
 }
 
-.tab.active.pinned:hover {
-  transform: scale(1.08); 
-  z-index: 10;
-  box-shadow: inset 0 0 6px 2px #d1d1d1 !important,
+.tab.active.pinned:hover 
+{
+	transform: scale(1.08); 
+	z-index: 10;
+	box-shadow: inset 0 0 6px 2px #d1d1d1 !important,
               0 4px 12px rgba(0,0,0,0.25) !important;
 }
 
-.tab.active:not(.pinned) {
-  background-color: rgba(209, 209, 209, 0.1) !important; 
-  box-shadow: none !important;
-  border-radius: 30px !important;
+.tab.active:not(.pinned) 
+{
+	background-color: rgba(209, 209, 209, 0.1) !important; 
+	box-shadow: none !important;
+	border-radius: 30px !important;
 }
 
-.tab.active:not(pinned):hover {
-  transform: scale(1.02); 
-  z-index: 10;
+.tab.active:not(pinned):hover 
+{
+	transform: scale(1.02); 
+	z-index: 10;
 }
 
-.tab:hover:not(.active):not(.pinned) {
-  background-color: rgba(209, 209, 209, 0.1) !important;
-  transform: scale(1.05);
-  z-index: 10;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-  border-radius: 30px !important;
+.tab:hover:not(.active):not(.pinned) 
+{
+	background-color: rgba(209, 209, 209, 0.1) !important;
+	transform: scale(1.05);
+	z-index: 10;
+	box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+	border-radius: 30px !important;
 }
 
-.tab.pinned:hover:not(.active) {
-  background-color: rgba(209, 209, 209, 0.1) !important;
-  transform: scale(1.05);
-  z-index: 10;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-  border-radius: 6px !important;
+.tab.pinned:hover:not(.active) 
+{
+	background-color: rgba(209, 209, 209, 0.1) !important;
+	transform: scale(1.05);
+	z-index: 10;
+	box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+	border-radius: 6px !important;
 }
 
-.tab.active .title {
-  color: white !important;
+.tab.active .title 
+{
+	color: white !important;
 }
 
 /* Softer grayscale for discarded tabs */
 .tab.isdiscarded,
-.tab[class*="discard"] {
-  filter: grayscale(100%) brightness(95%) !important;
-  opacity: 0.9 !important;
+.tab[class*="discard"] 
+{
+	filter: grayscale(100%) brightness(95%) !important;
+	opacity: 0.9 !important;
 }
 
 .tab.isdiscarded .title,
 .tab.isdiscarded .favicon,
 .tab[class*="discard"] .title,
-.tab[class*="discard"] .favicon {
-  filter: grayscale(100%) brightness(95%) !important;
-  opacity: 0.9 !important;
+.tab[class*="discard"] .favicon 
+{
+	filter: grayscale(100%) brightness(95%) !important;
+	opacity: 0.9 !important;
 }
 
 .tab.isdiscarded .media-indicator,
@@ -1081,399 +1498,43 @@
 .tab.isdiscarded .close,
 .tab[class*="discard"] .media-indicator,
 .tab[class*="discard"] .badge,
-.tab[class*="discard"] .close {
-  filter: none !important;
-  opacity: 1 !important;
-}
-
-/*========================
-  Title Bar / Window Controls
-========================*/
-
-/* Hide the Vivaldi menu (sandwich) button */
-button.vivaldi {
-    display: var(--phitweaks--sandwich-button) !important;
-}
-
-/* Right-aligned group */
-.window-buttongroup.on-mainbar {
-    margin-left: auto !important;
-    margin-right: 8px !important;
-    gap: 6px !important;
-    display: flex !important;
-    align-items: center !important;
-}
-
-/* Base circle style */
-.window-buttongroup.on-mainbar button {
-    width: 14px !important;
-    height: 14px !important;
-    border-radius: 50% !important;
-    border: none !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    min-width: 14px !important;
-    min-height: 14px !important;
-    font-size: 0 !important;
-    color: transparent !important;
-}
-
-/* Hide default glyphs */
-.window-buttongroup.on-mainbar button::before,
-.window-buttongroup.on-mainbar button::after {
-    content: none !important;
-}
-
-/* macOS colors */
-.window-buttongroup.on-mainbar .window-close {
-    background: #bf4040 !important;
-}
-.window-buttongroup.on-mainbar .window-close img,
-.window-buttongroup.on-mainbar .window-close svg {
-    width: 0 !important;
-	height: 0 !important;
-}
-
-.window-buttongroup.on-mainbar .window-minimize {
-    background: #bfbf40 !important;
-}
-.window-buttongroup.on-mainbar .window-minimize img,
-.window-buttongroup.on-mainbar .window-minimize svg {
-    width: 0 !important;
-	height: 0 !important;
-}
-
-.window-buttongroup.on-mainbar .window-maximize {
-    background: #339944 !important;
-}
-.window-buttongroup.on-mainbar .window-maximize img,
-.window-buttongroup.on-mainbar .window-maximize svg {
-    width: 0 !important;
-	height: 0 !important;
-}
-
-/* Hover = darker */
-.window-buttongroup.on-mainbar .window-close:hover {
-    background: #452521 !important;
-}
-.window-buttongroup.on-mainbar .window-minimize:hover {
-    background: #444521 !important;
-}
-.window-buttongroup.on-mainbar .window-maximize:hover {
-    background: #1e3722 !important;
-}
-
-/*========================
-  Downloads
-========================*/
-#downloads-container,
-#downloads-container * {
-    font-size: 90% !important;
-}
-
-.downloadItem,
-.download-item {
-    padding: 2px 6px !important;
-    min-height: 22px !important;
-}
-
-.downloadProgress,
-.download-progress {
-    height: 3px !important;
-}
-
-.downloadItem .button-toolbar,
-.download-item .button-toolbar {
-    padding: 0 4px !important;
-    scale: 0.9;
-}
-
-/* Panel Elements */
-
-.toolbar-default {
-    height: 28px; !important;
-}
-
-.toolbar.toolbar-default.toolbar-wrap {
-    visibility: hidden !important;
-	height: 0px !important;
-}
-
-.panel > header {
-    min-height: 26px !important;
-	margin-bottom: 0px !important;
-}
-
-.panel section {
-    padding-bottom: 10px;
-}
-
-.sortselector-compact
-
-.panel > header input[type=text], .panel > header input[type=search] {
-    display: none !important;
-}
-
-.download-editor.download-editor {
-    display: none !important;
-}
-
-.button-popup .resize {
-    display: none !important;
-}
-
-.button-popup-arrow-dark:before {
-    display: none !important;
-}
-
-
-.download-popout.button-popup {
-  position: fixed !important;
-  width: 360px !important;
-  height: 280px !important;
-  bottom: 40px !important;
-  right: 20px !important;
-  left: 425px !important;
-  top: auto !important;
-}
-
-.panel > header h1 {
-    margin: 5px 0px 12px 12px;
-}
-
-.sortselector.sortselector-compact {
-	visibility: hidden !important;
-    margin-bottom: 0px !important;
-	position: fixed !important;
-}
-
-/* downloads progress */
-#downloads-button .downloads-button-progress {
-  animation: download-pulse 1.5s infinite;
-}
-
-@keyframes download-pulse {
-  0% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(1.1);
-    opacity: 0.8;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-
-
-/*========================
-  Address Bar
-========================*/
-
-/* Always show dropdown on focus */
-.UrlBar-AddressField:focus-within ~ .OmniDropdown {
-    display: flex !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    max-height: 500px !important;
-    pointer-events: auto !important;
-}
-
-/* Taller container and fields */
-.toolbar-mainbar.UrlBar {
-  min-height: 48px !important;
-  padding: 8px 10px !important;
-  border-radius: 16px !important;
-  overflow: hidden !important;
-}
-
-.UrlBar-AddressField {
-  min-height: 40px !important;
-  font-size: 14px !important;
-  border-radius: 16px !important;
-  position: relative !important;
-  overflow: visible !important;
-}
-
-.toolbar-mainbar.UrlBar .button-toolbar {
-  min-height: 40px !important;
-  min-width: 40px !important;
-}
-
-/* Button menu icons hidden */
-.button-toolbar.button-menu .button-toolbar-menu-indicator svg {
-    width: 0px;
-    height: 0px;
-    margin: 0;
-}
-
-/*========================
-  Extension Tweaks
-========================*/
-
-.extension-popup {
-  position: fixed !important;
-  top: 40px !important;
-  left: 10px !important;
-}
-
-.extension-popup::before,
-.extension-popup::after {
-  display: none !important;
-  content: none !important;
-}
-
-
-/* Wider Popup */
-.extensionIconPopupMenu {
-  min-width: 280px !important;
-  max-width: 320px !important;
-  padding: 6px !important;
-}
-
-/* Extension in row */
-.extensionIconPopupMenu .toolbar.toolbar-mainbar.toolbar-wrap .button-toolbar {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: flex-start !important;
-  gap: 12px !important;
-
-  padding: 10px 14px !important;
-  margin: 2px 0 !important;
-  border-radius: 10px !important;
-
-  width: 100% !important;
-  box-sizing: border-box !important;
-  cursor: pointer !important;
-  transition: background 0.2s ease;
-}
-
-.extensionIconPopupMenu .toolbar.toolbar-mainbar.toolbar-wrap .button-toolbar:hover {
-  background: rgba(0,0,0,0.08) !important;
-}
-
-/* Icon size */
-.extensionIconPopupMenu .toolbar.toolbar-mainbar.toolbar-wrap .button-toolbar > button {
-  flex-shrink: 0 !important;
-  width: 22px !important;
-  height: 22px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-}
-
-/* Label next to icon */
-.extensionIconPopupMenu .toolbar.toolbar-mainbar.toolbar-wrap .button-toolbar > button::after {
-  content: attr(title) !important;
-  font-size: 14px !important;
-  color: var(--colorFg, #222) !important;
-  margin-left: 10px !important;
-  flex-grow: 1 !important;
-  text-align: left !important;
-  white-space: nowrap !important;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
-}
-
-/* Remove inner button background (hover) */
-.extensionIconPopupMenu .toolbar.toolbar-mainbar.toolbar-wrap .button-toolbar > button {
-  background: transparent !important;
-  box-shadow: none !important;
-}
-
-/* Hover the whole row instead */
-.extensionIconPopupMenu .toolbar.toolbar-mainbar.toolbar-wrap .button-toolbar:hover {
-  background: rgba(0,0,0,0.45) !important;
-  border-radius: 8px !important;
-}
-
-/*========================
-  Miscellaneous & other UI tweaks
-========================*/
-
-.WorkspacePopup-Items hr {
-    height: 0px;
-    border: 0;
-    background: var(--colorFgFaded);
-    border-radius: var(--radius);
-    opacity: 0.15;
-    width: 95%;
-    margin-top: 8px;
-    margin-bottom: 4px;
+.tab[class*="discard"] .close 
+{
+	filter: none !important;
+	opacity: 1 !important;
 }
 
 /* Vertical scrolling for tabs */
 #tabs-container,
-#tabs-tabbar-container {
-  overflow-y: auto !important;
-  overflow-x: hidden !important;
+#tabs-tabbar-container 
+{
+	overflow-y: auto !important;
+	overflow-x: hidden !important;
 }
 
-.BookmarkButton {
-  display: none !important;
+.win.hasfocus .vivaldi-tree .VivaldiList:focus-within .tree-item[data-lead] .tree-row.tree-row, .linux.hasfocus .vivaldi-tree .VivaldiList:focus-within .tree-item[data-lead] .tree-row.tree-row {
+    background-color: var(--colorAccentFgAlpha);
+    box-shadow: inset 0 0 0 1px var(--colorAccentFgAlpha);
+	color: var(--colorHighlightFg);
 }
 
-.UrlBar-AddressField {
-  display: flex;
-  flex-direction: row-reverse;
+/*========================
+  Workspace Button
+========================*/
+
+.theme-dark .WorkspacePopup 
+{
+    background-color: var(--colorBgIntserAlpha);
 }
 
-.UrlBar-AddressField {
-  display: flex;
-  justify-content: space-between;
+.theme-dark .WorkspacePopup-Items .workspace-item-wrapper, .theme-dark .WorkspacePopup-Items .this-window 
+{
+    background-color: var(--colorBgIntserAlpha);
 }
 
-.UrlBar-AddressField .UrlBar-AddressField-Lock,
-.UrlBar-AddressField .UrlBar-ContentBlockerStatus {
-  display: flex;
-  flex-direction: row;
-  order: 2;
-}
-
-.UrlBar-AddressField .UrlBar-UrlFieldWrapper {
-  padding-left: 12px;
-  order: 1;
-}
-
-.tabs-left #tabs-container .toolbar-tabbar-after, .tabs-right #tabs-container .toolbar-tabbar-after {
-    visibility: hidden;
-}
-
-
-.OmniLinkItem-Badge {
-    text-align: unset;
-    font-size: 0px;
-    visibility: hidden;
-    padding: 0px;
-}
-
-.OmniLinkItem-TabSwitchLabel {
-    padding: 0px;
-    visibility: hidden;
-    margin-left: unset;
-    gap: 0px;
-    font-size: 0px;
-}
-
-.OmniLinkItem--Highlighted:not(.OmniLinkItem--ButtonFocus) {
-    background-color: #1a1a1a;
-}
-
-.OmniLinkItem {
-    padding: 16px 16px 16px 16px;
-}
-
-.color-behind-tabs-off .SearchField:focus-within, .color-behind-tabs-off .MailSearchField-Inner:focus-within, .color-behind-tabs-off .UrlBar-AddressField:focus-within {
-	box-shadow: 2px 0 0 0 var(--colorAccentBgFadedMost), 
-            -2px 0 0 0 var(--colorAccentBgFadedMost), 
-            0 -2px 0 0 var(--colorAccentBgFadedMost),
-            0 1px 0 0 var(--colorAccentBgFadedMost);
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-	outline: none !important;
+:not(:active, .workspace-item-wrapper).WorkspacePopup-Items .workspace-item-wrapper:hover, :not(:active, .workspace-item-wrapper).WorkspacePopup-Items .this-window:hover 
+{
+	background-color: var(--colorAccentFgAlpha);
 }
 
 /*========================
@@ -1490,3 +1551,8 @@ button.vivaldi {
     transition: width 0.3s ease;
     z-index: 9999;
 }
+
+button.ToolbarButton-Button {
+    app-region: no-drag  !important;
+}
+
