@@ -1,8 +1,10 @@
-/* φ Furui Phi Tweaks (/faɪ/)
- * This is my personal CSS that I use to fit my liking and just appended some things to Phi that I want to be included
- * Version 2025_05_10.0
+/* φ Phi (/faɪ/)
+ * The ultimate vertical experience theme for Vivaldi, made with attention to details.
+ * Version 2025_09_20.0
  *
+ * Last Linux test   : Phi current on Vivaldi v7.6.3797.52
  * Last Windows test : Phi 2025_05_09.0 on Vivaldi v7.3.3635.12
+ * Last Mac test     : Phi 2025_05_09.0 on Vivaldi v7.3.3635.4
  *
  * (C) 2025 — KaKi87
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
@@ -1342,11 +1344,6 @@
 	}
 
 	.button-popup:before 
-	{
-	  display: none;
-	}
-
-	.toolbar-default 
 	{
 	  display: none;
 	}
