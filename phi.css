@@ -1,10 +1,8 @@
-/* φ Phi (/faɪ/)
- * The ultimate vertical experience theme for Vivaldi, made with attention to details.
- * Version 2025_09_20.0
+/* φ Furui Phi Tweaks (/faɪ/)
+ * This is my personal CSS that I use to fit my liking and just appended some things to Phi that I want to be included
+ * Version 2025_11_26
  *
- * Last Linux test   : Phi current on Vivaldi v7.6.3797.52
- * Last Windows test : Phi 2025_05_09.0 on Vivaldi v7.3.3635.12
- * Last Mac test     : Phi 2025_05_09.0 on Vivaldi v7.3.3635.4
+ * Last Windows test : Phi 2025_11_26 on Vivaldi v7.7.3851.52
  *
  * (C) 2025 — KaKi87
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
@@ -13,6 +11,7 @@
  *
  * https://git.kaki87.net/KaKi87/phi-for-vivaldi
  */
+
 
  /*┌──────────────────┐
    │User customization│
@@ -51,7 +50,9 @@
 	========================*/
 	
 	--phitweaks--loadingbar-color: #D9F4C7, #F8FA90, #F4EF88, #AC9969;
-	--phitweaks--hide-workspace-button: 1;
+	/* This setting is optional and configurable if furui.js is installed */
+	
+	--phitweaks--hide-workspace-button: 0;
 	--phitweaks--custom-window-controls: 1;
 		--phitweaks--custom-window-controls-minimize-color: #E69B00;
 		--phitweaks--custom-window-controls-maximize-color: #028A0F;
@@ -1025,6 +1026,7 @@
 		grid-column: 1 / -1;
 		margin-left: auto !important;
 		margin-right: 4px;
+		pointer-events: none;
 	}
 
 	.disable-titlebar#browser.win .window-buttongroup 
@@ -1048,11 +1050,12 @@
 		padding: 0 !important;
 		margin: 0 !important;
 		min-width: 32px !important;
-		min-height: 32px !important;
+		min-height: calc(var(--phitweaks--custom-window-controls-windows-style-height) * 1px) !important;
 		font-size: 0 !important;
 		color: transparent !important;
         background: none !important;
         z-index: 2;
+		pointer-events: auto !important;
 	}
 
     .window-buttongroup.on-mainbar button::after
