@@ -70,7 +70,7 @@ While the mod aims to be compatible with as many native customization features a
 **Furui Tweaks Customization**
 | Name                                     | Description                                                                                       | Value(s)                                | Default         |
 |------------------------------------------|---------------------------------------------------------------------------------------------------|-----------------------------------------|-----------------|
-| `loadingbar-color`                       | Color of the loading bar on the top.                                                              | Comma-separated Hex values              | `#D9F4C7, #F8FA90, #F4EF88, #AC9969` |
+| `loadingbar-color`                       | Color of the loading bar on the top.<br><br> This setting is optional and configurable if `furui.js` is installed                                                             | Comma-separated Hex values              | `#D9F4C7, #F8FA90, #F4EF88, #AC9969` |
 | `hide-workspace-button`                  | Enable or Disable Workspace Button.                                                               | `1` = enable<br>`0` = disable           | `1`          |
 | `custom-window-controls`                 | Display an aesthetically pleasing Window Controls Group.                                          | `0` = disable<br>`1` = Stylized Windows<br>`2` = Mac OS Style    | `1`          |
 | `custom-window-controls-minimize-color`  | Color of the Minimize Button.                                                                     | Any Hex values                          | `#E69B00`       |
