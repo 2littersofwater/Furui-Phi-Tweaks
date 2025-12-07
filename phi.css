@@ -379,14 +379,22 @@
     {
         grid-column: 1 / span var(--phi--toolbar-column-count);
     }
-
+	
     .UrlBar-AddressField
     {
         grid-row-start: var(--phi__address-bar-row);
         z-index: 2;
         margin: 0;
         font-size: calc(13px - calc(var(--phi--address-bar-font-size-decrease) * 1px));
+		background: var(--colorBgAlphaHeavier);
+        border-color: transparent;
+		transition: background-color 0.3s ease-in-out;
+		padding: 1px 1px;
     }
+
+	.UrlBar-AddressField:hover {
+		background-color: var(--colorBg);
+	}
 
     .UrlBar-AddressField:has(#urlFieldInput:focus)
     {
@@ -1425,6 +1433,12 @@
 	z-index: 0;
 }
 
+.tab:active {
+    transform: scale(1.1) !important; 
+    z-index: 99 !important; /* Top of the pile! */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.6) !important;
+}
+
 .tab.active.pinned 
 {
 	background-color: transparent !important;
@@ -1517,6 +1531,7 @@
     box-shadow: inset 0 0 0 1px var(--colorAccentFgAlpha);
 	color: var(--colorHighlightFg);
 }
+
 
 /*========================
   Workspace Button
