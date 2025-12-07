@@ -401,6 +401,7 @@
         grid-column: 1 / -1;
         height: 100% !important;
         font-size: unset;
+		background: var(--colorBgAlpha);
     }
 
     @container style(--phi--is-address-bar-focused-height-increase: 1)
@@ -460,6 +461,7 @@
     {
         top: 105%;
         padding-top: 0;
+		background: var(--colorBgAlpha);
     }
 
     .toolbar-extensions
