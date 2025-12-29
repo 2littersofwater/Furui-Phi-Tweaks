@@ -1031,7 +1031,7 @@
 	{
 		position: fixed !important;
 		left: calc(100vw - 120px) !important;
-        right: unset !important;
+        right: unset !important;
 		top: 0px !important;
 		grid-column: 1 / -1;
 		margin-left: auto !important;
@@ -1039,12 +1039,12 @@
 		pointer-events: none;
 	}
 
-	.disable-titlebar#browser.win .window-buttongroup 
+	.disable-titlebar#browser.win .window-buttongroup
 	{
 		height: 18px;
 	}			
 
-	.window-buttongroup.on-mainbar 
+	.window-buttongroup.on-mainbar
 	{
 		gap: 0px !important;
 		overflow: hidden;
@@ -1453,7 +1453,7 @@
 	transform: scale(1.08); 
 	z-index: 10;
 	box-shadow: inset 0 0 6px 2px #d1d1d1 !important,
-              0 4px 12px rgba(0,0,0,0.25) !important;
+                0 4px 12px rgba(0,0,0,0.25) !important;
 }
 
 .tab.active:not(.pinned) 
@@ -1568,8 +1568,3 @@
     transition: width 0.3s ease;
     z-index: 9999;
 }
-
-button.ToolbarButton-Button {
-    app-region: no-drag  !important;
-}
-
