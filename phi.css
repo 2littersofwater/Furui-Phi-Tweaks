@@ -2,7 +2,7 @@
  * This is my personal CSS that I use to fit my liking and just appended some things to Phi that I want to be included
  * Version 2025_11_26
  *
- * Last Windows test : Phi 2025_11_26 on Vivaldi v7.7.3851.52
+ * Last Windows test : Furui PhiTweaks on 7.8.3925.56
  *
  * (C) 2025 — KaKi87
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
@@ -176,6 +176,11 @@
     #tabs-container              { grid-row: 3 / span 1; }
     .toolbar-panel               { grid-row: 4 / span 1; }
 
+	.window-buttongroup
+	{
+		background-color: transparent;
+	}
+
 	@container style(--phitweaks--custom-window-controls: 0)
 	{
 		.window-buttongroup
@@ -183,6 +188,7 @@
 			position: relative !important;
 			left: unset !important;
 			right: unset !important;
+			grid-row: 1 / 2;
 			grid-column: 1 / -1;
 		}
 	}
@@ -1031,7 +1037,7 @@
 	{
 		position: fixed !important;
 		left: calc(100vw - 120px) !important;
-        right: unset !important;
+        right: unset !important;
 		top: 0px !important;
 		grid-column: 1 / -1;
 		margin-left: auto !important;
@@ -1039,12 +1045,12 @@
 		pointer-events: none;
 	}
 
-	.disable-titlebar#browser.win .window-buttongroup
+	.disable-titlebar#browser.win .window-buttongroup 
 	{
 		height: 18px;
 	}			
 
-	.window-buttongroup.on-mainbar
+	.window-buttongroup.on-mainbar 
 	{
 		gap: 0px !important;
 		overflow: hidden;
@@ -1453,7 +1459,7 @@
 	transform: scale(1.08); 
 	z-index: 10;
 	box-shadow: inset 0 0 6px 2px #d1d1d1 !important,
-                0 4px 12px rgba(0,0,0,0.25) !important;
+              0 4px 12px rgba(0,0,0,0.25) !important;
 }
 
 .tab.active:not(.pinned) 
@@ -1567,4 +1573,40 @@
 	background: linear-gradient(to right, var(--phitweaks--loadingbar-color));
     transition: width 0.3s ease;
     z-index: 9999;
+}
+
+button.ToolbarButton-Button {
+    app-region: no-drag  !important;
+}
+
+
+
+
+/* Custom Floating Find in Page Bar */
+
+/* * The .find-in-page element is the actual content bar (input, buttons).
+* We set it to position: absolute to float it and give it a high z-index
+* to ensure it stays on top of everything.
+*/
+.find-in-page {
+	position: absolute;
+    z-index: 9999;
+    top: 10px;
+    left: 10px;
+
+    width: auto !important;
+    max-width: 400px;
+
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+
+    background-color: var(--colorBgIntserAlpha); 
+    border: 1px solid var(--colorBorder);
+}
+
+.find-in-page-wrapper {
+
+    height: 0 !important; 
+    border-bottom: none !important;
+    background-color: transparent !important;
 }
