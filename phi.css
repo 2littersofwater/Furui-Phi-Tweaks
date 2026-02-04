@@ -556,6 +556,7 @@
             margin: 0;
             flex-direction: row !important;
             flex-wrap: wrap;
+			margin-bottom: 5px;
         }
 
         .toolbar-panel::before
@@ -563,8 +564,8 @@
             content: '';
             width: 100%;
             border: 1px solid var(--colorAccentFg);
-            opacity: 0.15;
-            margin: 5px;
+            opacity: 0; /* default 0.15 */
+            margin: 0px; /* default 5px */
         }
     }
 
@@ -582,7 +583,7 @@
         display: grid;
         grid-template-columns: repeat(var(--phi--pinned-column-count), minmax(0, 1fr));
         grid-auto-rows: min-content;
-        gap: 5px;
+        gap: 10px; /* edited */
         justify-content: center;
     }
 
@@ -605,7 +606,6 @@
         margin: 0;
         padding: 0;
         max-height: unset;
-		background-color: var(--colorBgAlphaHeavier);
     }
 
     .tab-strip .separator
@@ -1481,7 +1481,7 @@
 	transform: scale(1.05);
 	z-index: 10;
 	box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-	border-radius: 30px !important;
+	border-radius: 8px !important;
 }
 
 .tab.pinned:hover:not(.active) 
@@ -1500,19 +1500,37 @@
 
 /* Softer grayscale for discarded tabs */
 .tab.isdiscarded,
-.tab[class*="discard"] 
-{
-	filter: grayscale(100%) brightness(95%) !important;
-	opacity: 0.9 !important;
+.tab[class*="discard"] {
+    filter: grayscale(100%) brightness(95%) !important;
+    opacity: 0.6 !important;
 }
 
-.tab.isdiscarded .title,
-.tab.isdiscarded .favicon,
-.tab[class*="discard"] .title,
-.tab[class*="discard"] .favicon 
-{
-	filter: grayscale(100%) brightness(95%) !important;
-	opacity: 0.9 !important;
+.tab.isdiscarded:hover,
+.tab[class*="discard"]:hover {
+    filter: none !important;
+    opacity: 0.9 !important;
+}
+
+.tab.isdiscarded:hover .favicon,
+.tab[class*="discard"]:hover .favicon {
+    filter: none !important;
+    opacity: 0.7 !important;
+}
+
+.tab.isdiscarded:hover .title,
+.tab[class*="discard"]:hover .title {
+    opacity: 0.7 !important;
+}
+
+.tab:not(.isdiscarded):not([class*="discard"]):not(.active) {
+    opacity: 1 !important;
+    filter: none !important;
+}
+
+.tab:not(.isdiscarded):not([class*="discard"]):not(.active) .title,
+.tab:not(.isdiscarded):not([class*="discard"]):not(.active) .favicon {
+    opacity: 1 !important;
+    filter: none !important;
 }
 
 .tab.isdiscarded .media-indicator,
@@ -1520,24 +1538,56 @@
 .tab.isdiscarded .close,
 .tab[class*="discard"] .media-indicator,
 .tab[class*="discard"] .badge,
-.tab[class*="discard"] .close 
-{
-	filter: none !important;
-	opacity: 1 !important;
+.tab[class*="discard"] .close {
+    filter: none !important;
+    opacity: 1 !important;
 }
 
-/* Vertical scrolling for tabs */
-#tabs-container,
-#tabs-tabbar-container 
-{
-	overflow-y: auto !important;
-	overflow-x: hidden !important;
+.tab .favicon {
+    transition: filter 0.3s ease, opacity 0.3s ease !important;
 }
 
-.win.hasfocus .vivaldi-tree .VivaldiList:focus-within .tree-item[data-lead] .tree-row.tree-row, .linux.hasfocus .vivaldi-tree .VivaldiList:focus-within .tree-item[data-lead] .tree-row.tree-row {
-    background-color: var(--colorAccentFgAlpha);
-    box-shadow: inset 0 0 0 1px var(--colorAccentFgAlpha);
-	color: var(--colorHighlightFg);
+.tab.isdiscarded:hover .favicon,
+.tab[class*="discard"]:hover .favicon {
+    filter: none !important; 
+    opacity: 0.7 !important;
+}
+
+.tab .title {
+    transition: opacity 0.3s ease !important;
+}
+
+/* Vertical scrolling for tabs with a Fading Edge */
+#tabs-container {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    
+    /* The Magic: Linear gradient mask */
+    /* It stays solid (100%) for most of the container, then fades to 0% at the bottom 40px */
+    -webkit-mask-image: linear-gradient(to bottom, 
+        black 0%, 
+        black calc(100% - 20px), 
+        transparent 100%
+    );
+    mask-image: linear-gradient(to bottom, 
+        black 0%, 
+        black calc(100% - 20px), 
+        transparent 100%
+    );
+
+    /* Ensures the mask stays put while you scroll */
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+
+    /* Buffer to ensure the last tab can be seen before fully fading */
+    padding-bottom: 20px !important; 
+}
+
+/* Ensure the scrollbar doesn't get masked out if you're using one */
+#tabs-container::-webkit-scrollbar {
+    width: 6px !important;
 }
 
 
@@ -1558,6 +1608,38 @@
 :not(:active, .workspace-item-wrapper).WorkspacePopup-Items .workspace-item-wrapper:hover, :not(:active, .workspace-item-wrapper).WorkspacePopup-Items .this-window:hover 
 {
 	background-color: var(--colorAccentFgAlpha);
+}
+
+
+
+/*========================
+  Toolbar Icons
+========================*/
+
+
+#browser:not(.density-on) #switch :is(button, .button-toolbar) {
+    border-radius: 8px !important;
+    transition: background-color 0.1s ease-out;
+}
+
+#browser:not(.density-on) #switch :is(button, .button-toolbar):not(.toolbar-spacer, .toolbar-spacer-panel, .toolbar-spacer-flexible, .toolbar-divider):is(:hover, :active) {
+    background-color: var(--colorBgDark);
+}
+
+#browser:not(.density-on) #switch :is(button, .button-toolbar) img,
+#browser:not(.density-on) #switch :is(button, .button-toolbar) svg {
+    transform: scale(0.8);
+    transition: transform 0.2s ease;
+}
+
+#browser:not(.density-on) #switch :is(button, .button-toolbar) {
+    height: 32px !important;
+    width: 32px !important;
+    margin: 2px auto !important;
+}
+
+#browser:not(.density-on) #switch :is(button, .button-toolbar):hover :is(img, svg) {
+    transform: scale(1);
 }
 
 /*========================
