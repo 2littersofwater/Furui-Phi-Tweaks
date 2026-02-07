@@ -49,7 +49,7 @@
 	  Phi Tweaks Settings
 	========================*/
 	
-	--phitweaks--loadingbar-color: #D9F4C7, #F8FA90, #F4EF88, #AC9969;
+	--phitweaks--loadingbar-color: #D33F49, #D7C0D0, #EFF0D1, #77BA99, #262730;
 	/* This setting is optional and configurable if furui.js is installed */
 	
 	--phitweaks--hide-workspace-button: 0;
@@ -62,6 +62,7 @@
 	--phitweaks--vertical-extensions: 1;
 	--phitweaks--simplified-downloads: 1;
 	--phitweaks--simplified-downloads-files: 8;
+
 
 
 /*
@@ -468,12 +469,14 @@
         top: 105%;
         padding-top: 0;
 		background: var(--colorBgAlpha);
+		backdrop-filter: blur(10px);
     }
 
     .toolbar-extensions
     {
         grid-row: var(--phi__extensions-row) / span 1;
         flex-wrap: wrap;
+		box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.2);
     }
 
     .toolbar-extensions:empty
@@ -583,9 +586,16 @@
         display: grid;
         grid-template-columns: repeat(var(--phi--pinned-column-count), minmax(0, 1fr));
         grid-auto-rows: min-content;
-        gap: 10px; /* edited */
+        gap: 5px; /* edited */
         justify-content: center;
+		top: 5px !important;
     }
+
+	/* Unpinned Tabs Gap */
+	.tab-strip .tab:not(.pinned) 
+	{
+    margin: 2.5px !important; 
+	}
 
     .tab-wrapper,
     .tab-strip .separator,
@@ -607,6 +617,12 @@
         padding: 0;
         max-height: unset;
     }
+	
+	.tab-wrapper:has(.tab:not(.pinned))
+	{
+		margin: 0px 2px !important;
+		padding: 2px 0px !important;
+	}
 
     .tab-strip .separator
     {
@@ -1287,6 +1303,7 @@
 		max-width: 320px !important;
 		padding: 6px !important;
 		background-color: var(--colorBgIntserAlpha);
+		backdrop-filter: blur(10px);
 	}
 
 	/* Extension in row */
@@ -1381,6 +1398,7 @@
 	  height: calc(((var(--phitweaks--simplified-downloads-files) - 4) * 50px) + 270px) !important;
 	  background: var(--colorBgIntserAlpha) !important;
 	  margin-left: -30px !important;
+	  backdrop-filter: blur(10px);
 	}
 
 	.sortselector.sortselector-compact 
@@ -1421,13 +1439,6 @@
 	filter: none;
 }
 
-.tab-position,
-.tab-wrapper 
-{
-	min-height: 30px !important;
-	flex: none !important;
-}
-
 .tab-strip,
 .tab-position,
 .tab-wrapper 
@@ -1447,31 +1458,42 @@
     box-shadow: 0 10px 25px rgba(0,0,0,0.6) !important;
 }
 
-.tab.active.pinned 
-{
+/* Target only active pinned tabs */
+.tab.active.pinned {
 	background-color: transparent !important;
-	box-shadow: inset 0 0 3px 1px #d1d1d1 !important; 
 	border-radius: 6px !important;
+}
+
+/* Ensure the real favicon stays crisp and centered */
+.tab.active.pinned .favicon {
+    filter: drop-shadow(0 0 5px rgba(0,0,0,0.5)) !important;
+    z-index: 1 !important;
 }
 
 .tab.active.pinned:hover 
 {
-	transform: scale(1.08); 
+	transform: scale(1.1) translateY(-2px);
 	z-index: 10;
-	box-shadow: inset 0 0 6px 2px #d1d1d1 !important,
-              0 4px 12px rgba(0,0,0,0.25) !important;
+}
+
+.tab.pinned:hover:not(.active) 
+{
+	background-color: rgba(209, 209, 209, 0.1) !important;
+	transform: scale(1.25) translateY(-2px);
+	z-index: 10;
+	border-radius: 6px !important;
 }
 
 .tab.active:not(.pinned) 
 {
-	background-color: rgba(209, 209, 209, 0.1) !important; 
+	background-color: rgba(209, 209, 209, 0.30) !important; 
 	box-shadow: none !important;
-	border-radius: 30px !important;
+	border-radius: 8px !important;
 }
 
 .tab.active:not(pinned):hover 
 {
-	transform: scale(1.02); 
+	transform: scale(1.05); 
 	z-index: 10;
 }
 
@@ -1482,15 +1504,6 @@
 	z-index: 10;
 	box-shadow: 0 4px 12px rgba(0,0,0,0.25);
 	border-radius: 8px !important;
-}
-
-.tab.pinned:hover:not(.active) 
-{
-	background-color: rgba(209, 209, 209, 0.1) !important;
-	transform: scale(1.05);
-	z-index: 10;
-	box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-	border-radius: 6px !important;
 }
 
 .tab.active .title 
@@ -1561,9 +1574,7 @@
 #tabs-container {
     overflow-y: auto !important;
     overflow-x: hidden !important;
-    
-    /* The Magic: Linear gradient mask */
-    /* It stays solid (100%) for most of the container, then fades to 0% at the bottom 40px */
+
     -webkit-mask-image: linear-gradient(to bottom, 
         black 0%, 
         black calc(100% - 20px), 
@@ -1587,7 +1598,7 @@
 
 /* Ensure the scrollbar doesn't get masked out if you're using one */
 #tabs-container::-webkit-scrollbar {
-    width: 6px !important;
+	display: none
 }
 
 
@@ -1643,33 +1654,9 @@
 }
 
 /*========================
-  JS tweaks
+  Find in Page
 ========================*/
 
-#loading-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 4px;
-    width: 0;
-	background: linear-gradient(to right, var(--phitweaks--loadingbar-color));
-    transition: width 0.3s ease;
-    z-index: 9999;
-}
-
-button.ToolbarButton-Button {
-    app-region: no-drag  !important;
-}
-
-
-
-
-/* Custom Floating Find in Page Bar */
-
-/* * The .find-in-page element is the actual content bar (input, buttons).
-* We set it to position: absolute to float it and give it a high z-index
-* to ensure it stays on top of everything.
-*/
 .find-in-page {
 	position: absolute;
     z-index: 9999;
@@ -1692,3 +1679,37 @@ button.ToolbarButton-Button {
     border-bottom: none !important;
     background-color: transparent !important;
 }
+
+/*========================
+	Webpage Blur
+========================*/
+
+#webpage-stack
+{
+	transition: filter 0.35s ease, transform 0.35s ease;
+	will-change: filter, transform;
+	transform-origin: center center;
+}
+
+#browser:has(.UrlBar-AddressField:focus-within) #webpage-stack
+{
+	filter: blur(10px);
+	transform: scale(0.99);
+
+}
+
+/*========================
+  JS tweaks
+========================*/
+
+#loading-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 4px;
+    width: 0;
+	background: linear-gradient(to right, var(--phitweaks--loadingbar-color));
+    transition: width 0.3s ease;
+    z-index: 9999;
+}
+
