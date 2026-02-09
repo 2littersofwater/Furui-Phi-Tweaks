@@ -1693,7 +1693,7 @@
 
 #browser:has(.UrlBar-AddressField:focus-within) #webpage-stack
 {
-	filter: blur(10px);
+	filter: blur(10px) brightness(80%);
 	transform: scale(0.99);
 
 }
