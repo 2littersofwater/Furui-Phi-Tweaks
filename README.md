@@ -5,38 +5,21 @@ This is my personal CSS that I use to fit my liking and just appended some thing
 
 
 # Installation:
-### **To install .css styling that I have:**
+### Clone the repository
+1. Code > Dwonload Zip
+2. Unzip anywhere then follow the below steps
+
+**CSS**
 + Installation guide found in [KaKi87's Phi for Vivaldi](https://github.com/KaKi87/phi-for-vivaldi), is the same.
 
-### **To install .js custom scripts that I have (essential for scripted codes)**
-1. Download the .js files in this repository
-2. Navigate to your Vivaldi installation folder and copy the .js files: 
-\
-``Vivaldi\Application\(Version)\resources\vivaldi``
-3. In that folder, find ``window.html`` and edit it to include <script src="filename.js"></script>
+**JS**
++ Run `JSinstall.bat`
 
-Example below:
 
-```
-<!-- Vivaldi window document -->
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8" />
-  <title>Vivaldi</title>
-  <link rel="stylesheet" href="style/common.css" />
-  <link rel="stylesheet" href="chrome://vivaldi-data/css-mods/css" />
-</head>
-
-<body>
-  <script src="furui.js"></script>
-</body>
-</html>
-```
 
 ##  Customization
 
-Transcript from [KaKi87's Phi for Vivaldi](https://github.com/KaKi87/phi-for-vivaldi)
+Transcript from [KaKi87's Phi for Vivaldi](https://github.com/KaKi87/phi-for-vivaldi?tab=readme-ov-file#gear-installation-video)
 
 While the mod aims to be compatible with as many native customization features as possible (especially sidebar position, side panel position & width, themes, etc.), some had to be moved (e.g. sidebar width), but more were also added, these are located in the file you downloaded, above the source code :
 
