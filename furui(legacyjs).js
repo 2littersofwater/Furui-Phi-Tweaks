@@ -1,46 +1,10 @@
 // ==UserScript==
 // @name        Furui's Script for Phi
-// @description Custom Scripts for Furui's Phi Tweaks
-// @version     1.4
+// @version     1.5
 // ==/UserScript==
 
 (function () {
     'use strict';
-
-    // ---------------------------------
-    // Auto-collapse menus
-    // ---------------------------------
-    function attachCollapseHandler() {
-        const menus = document.querySelectorAll('.extensionIconPopupMenu');
-        menus.forEach(menu => {
-            if (menu.dataset._collapseAttached) return;
-            menu.dataset._collapseAttached = '1';
-
-            menu.addEventListener('click', (evt) => {
-                if (evt.button !== 0) return;
-                setTimeout(() => menu.classList.add('collapsed'), 80);
-            }, true);
-        });
-    }
-
-    // Add CSS rule once
-    const style = document.createElement('style');
-    style.textContent = `.extensionIconPopupMenu.collapsed { display: none !important; }`;
-    document.head.appendChild(style);
-
-    // Debounce helper
-    let collapseRaf;
-    function scheduleAttach() {
-        if (collapseRaf) cancelAnimationFrame(collapseRaf);
-        collapseRaf = requestAnimationFrame(attachCollapseHandler);
-    }
-
-    // Observe only where extension menus appear
-    const extContainer = document.querySelector('#extensions') || document.body;
-    const closePopObserver = new MutationObserver(scheduleAttach);
-    closePopObserver.observe(extContainer, { childList: true, subtree: true });
-    attachCollapseHandler();
-    console.debug('[ext-collapse] optimized auto-collapse active');
 
     // ------------------------------
     // Loading Bar
@@ -107,14 +71,55 @@
         });
     };
 
-    const loadingBarObserver = new MutationObserver((mutations, obs) => {
+	// ------------------------------
+	// Favicon Background (Optimized)
+	// ------------------------------
+	let lastFaviconUrl = "";
+
+	const updateFaviconBackground = () => {
+		const activePinnedTab = document.querySelector('.tab.active.pinned');
+		if (activePinnedTab) {
+			const img = activePinnedTab.querySelector('.favicon img') || 
+						activePinnedTab.querySelector('img.favicon');
+			
+			if (img && img.src && img.src !== lastFaviconUrl) {
+				lastFaviconUrl = img.src;
+				activePinnedTab.style.setProperty('--tab-favicon-bg', `url("${img.src}")`);
+			}
+		}
+	};
+
+    // ------------------------------
+    // Initialization & Observation
+    // ------------------------------
+    const mainObserver = new MutationObserver((mutations, obs) => {
         const browserElement = document.getElementById('browser');
-        if (browserElement) {
+        const tabbar = document.querySelector('#tabs-container');
+
+        if (browserElement && tabbar) {
+            // We found the UI, stop observing the body and start the features
             obs.disconnect();
+            
+            // 1. Initialize Loading Bar
             createProgressBar();
+
+            // 2. Initialize Favicon Background Observer
+            // We observe the tabbar specifically for class changes (active/pinned)
+            const tabObserver = new MutationObserver(() => {
+                updateFaviconBackground();
+            });
+
+            tabObserver.observe(tabbar, { 
+                attributes: true, 
+                subtree: true, 
+                childList: true 
+            });
+
+            // Initial run
+            updateFaviconBackground();
         }
     });
 
-    loadingBarObserver.observe(document.body, { childList: true, subtree: true });
-})();
+    mainObserver.observe(document.body, { childList: true, subtree: true });
 
+})();
